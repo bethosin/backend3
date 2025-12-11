@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "test.js",
-    "dev": "nodemon index.js",
-    "build": "echo 'No build step defined'"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+   
   },
   "keywords": [
     "backend",
