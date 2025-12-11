@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">Dashboard</h1>
+      <p>Welcome to your dashboard!</p>
+
+      <% userEndpoint.forEach((users, index)=> { %>
+       <% if
+      (userEndpoint[index].firstname == "Elizabeth") { %>
+      <i><%= index+1 %> </i>
+      <h2><%= users.firstname %> <%= users.lastname %></h2>
+      <h2><%= users.email %></h2>
+      <% } else { %>
+      <h2>No user</h2> 
+         <%} %>
+      <% }) %>
+      
+      <% userEndpoint.forEach((users, index)=> { %>
+      <i><%= index+1 %> </i>
+      <h2><%= users.firstname %> <%= users.lastname %></h2>
+      <h2><%= users.email %></h2>
+      <form action="/delete/<%= index %>" method="POST" onsubmit="return confirm ('Are you sure you want to delete this user')">
+        <button type="submit">Delete</button>
+        </form>
+     <form action="/edit/<%= index %>" method="POST">
+        <button type="submit">Edit</button>
+        </form>
+
+      <% if (users.age <= 18 ) { %>
+      <h4>You are not old enough</h4>
+      <% } else { %>
+      <h4><%= users.age %></h4>
+      <% } %> <% }) %>
+
+    </div>
+  </body>
+</html>

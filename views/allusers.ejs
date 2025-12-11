@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Users</title>
+  <style>
+    .edit-form { display: none; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <h1>All Users</h1>
+
+  <% allusers.forEach((user, index) => { %>
+    <div id="user-<%= index %>">
+      <h3>
+        <i><%= index + 1 %></i> <br>
+        <strong>Name:</strong> <span class="display-name"><%= user.firstname %> <%= user.lastname %></span><br>
+        <strong>Email:</strong> <span class="display-email"><%= user.email %></span><br>
+        <strong>Age:</strong> <span class="display-age"><%= user.age %></span><br>
+        <strong>DOB:</strong> <span class="display-dob"><%= user.createdAt.toDateString() %></span><br>
+
+        <form action="/userdelete/<%= user._id %>" method="POST" onsubmit="return confirm('Are you sure?')">
+          <button type="submit">Delete User</button>
+        </form>
+
+        <button type="button" onclick="toggleForm('<%= index %>')">Edit User</button>
+      </h3>
+
+      <!-- Hidden edit form -->
+      <form 
+        class="edit-form" 
+        id="edit-form<%= index %>" 
+        action="/useredit/<%= user._id %>" 
+        method="POST"
+      >
+        <input type="text" name="firstname" value="<%= user.firstname %>" required>
+        <input type="text" name="lastname" value="<%= user.lastname %>" required><br>
+        <input type="email" name="email" value="<%= user.email %>" required><br>
+        <input type="number" name="age" value="<%= user.age %>" required><br>
+        <button type="submit">Update</button>
+        <button type="button" onclick="toggleForm('<%= index %>')">Cancel</button>
+      </form>
+    </div>
+  <% }); %>
+
+  <script>
+    function toggleForm(index) {
+      const form = document.getElementById(`edit-form${index}`);
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
